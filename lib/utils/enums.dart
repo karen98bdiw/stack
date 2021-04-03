@@ -1,0 +1,4 @@
+enum UserLoginActionChangeType {
+  SignUp,
+  SingIn,
+}
