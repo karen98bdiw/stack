@@ -3,11 +3,16 @@ import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:stack/pages/login_register_screens/sign_in_screen.dart';
 import 'package:stack/pages/login_register_screens/sign_up_screen.dart';
 import 'package:stack/utils/enums.dart';
 import 'package:stack/widgets/buttons.dart';
+
+bool isValidEmail(String email) {
+  return RegExp(
+          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+      .hasMatch(email);
+}
 
 Widget loginActionChangeText(
     UserLoginActionChangeType type, BuildContext context) {
