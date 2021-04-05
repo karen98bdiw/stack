@@ -6,7 +6,7 @@ import 'package:stack/utils/enums.dart';
 import 'package:stack/widgets/helpers.dart';
 
 class ProfileServices extends ChangeNotifier {
-  final User user = User();
+  User user = User();
   final auth.FirebaseAuth firebaseAuth = auth.FirebaseAuth.instance;
   final FirebaseFirestore store = FirebaseFirestore.instance;
 
@@ -22,9 +22,7 @@ class ProfileServices extends ChangeNotifier {
     try {
       var res = await store.collection("users").doc(user.id).get();
       print("profile:${res.data()}");
-      user.name = res["name"];
-      user.surname = res["surname"];
-      user.email = res["email"];
+      user = User.fromJson(res.data());
       user.state = CurentUserState.Signed;
       notifyListeners();
       if (res == null) {

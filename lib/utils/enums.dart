@@ -12,3 +12,8 @@ enum CurentUserState {
   Signed,
   NotSigned,
 }
+
+enum UserType {
+  Buisnes,
+  UsualUser,
+}

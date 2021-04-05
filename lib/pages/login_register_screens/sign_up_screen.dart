@@ -32,7 +32,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
       setState(() {
         _isLoading = true;
       });
-      var res = await LoginigService().signUp(model: _userSignUpModel);
+
+      try {
+        var res = await LoginigService().signUp(model: _userSignUpModel);
+
+        if (res != null) {
+          showInfoDiolog(
+              context: context, info: "You are successfuly singed up!");
+        }
+      } catch (e) {
+        setState(() {
+          showError(e.toString());
+          _isLoading = false;
+        });
+      }
 
       setState(() {
         _isLoading = false;
@@ -40,6 +53,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       //TODO show response in res states;
     }
+  }
+
+  @override
+  void initState() {
+    _userSignUpModel.type = UserType.UsualUser;
+    super.initState();
   }
 
   @override
@@ -152,6 +171,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 s == passwordController.text ? null : "Password doesn't match",
           ),
           SizedBox(
+            height: 15,
+          ),
+          userTypeCheckView(),
+          SizedBox(
             height: 25,
           ),
           CustomFormButton(
@@ -164,4 +187,62 @@ class _SignUpScreenState extends State<SignUpScreen> {
           loginActionChangeText(UserLoginActionChangeType.SingIn, context),
         ],
       ));
+
+  Widget userTypeCheckView() => Column(
+        children: [
+          Text(
+            "I will use Stack for",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+          ),
+          SizedBox(
+            height: 9,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _userSignUpModel.type = UserType.UsualUser;
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      "BOOK A QUEUE",
+                      textAlign: TextAlign.center,
+                      style: _userSignUpModel.type == UserType.UsualUser
+                          ? checkedTextStyle
+                          : unCheckedTextStyle,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _userSignUpModel.type = UserType.Buisnes;
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      "MANAGING MY BUISNES",
+                      textAlign: TextAlign.center,
+                      style: _userSignUpModel.type == UserType.Buisnes
+                          ? checkedTextStyle
+                          : unCheckedTextStyle,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
 }

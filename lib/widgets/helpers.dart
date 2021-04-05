@@ -184,3 +184,43 @@ void showError(msg) {
     textColor: Colors.white,
   );
 }
+
+Future<void> showInfoDiolog({BuildContext context, String info}) async {
+  await showDialog(
+    context: context,
+    builder: (c) => Dialog(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(13),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                info,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomButton(
+                    title: "Got it!",
+                    onTap: () {
+                      Navigator.of(context).pop(true);
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}

@@ -5,14 +5,14 @@ import 'package:stack/services/profile_services.dart';
 import 'package:stack/utils/enums.dart';
 import 'package:stack/widgets/helpers.dart';
 
-class HomeScreen extends StatefulWidget {
-  static final routeName = "HomeScreen";
+class HomeScreenBuisnes extends StatefulWidget {
+  static final routeName = "HomeScreenBuisnes";
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeScreenBuisnes createState() => _HomeScreenBuisnes();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenBuisnes extends State<HomeScreenBuisnes> {
   ProfileServices profileServices;
 
   @override
@@ -47,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text("name:${profileServices.user.name ?? ""}"),
                     Text("surname:${profileServices.user.surname ?? ""}"),
                     Text("email:${profileServices.user.email ?? ""}"),
+                    Text("email:${profileServices.user ?? ""}"),
                   ],
                 ),
               ),

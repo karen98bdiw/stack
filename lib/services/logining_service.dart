@@ -22,6 +22,7 @@ class LoginigService {
         return false;
       }
 
+      model.id = res.user.uid;
       store.collection("users").doc(res.user.uid).set(model.toJson());
 
       return true;

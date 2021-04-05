@@ -3,7 +3,8 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:provider/provider.dart';
 import 'package:stack/models/logining_models.dart';
 import 'package:stack/models/user.dart';
-import 'package:stack/pages/home_screen.dart';
+import 'package:stack/pages/home_screen_buisnes.dart';
+import 'package:stack/pages/home_screen_user.dart';
 import 'package:stack/services/logining_service.dart';
 import 'package:stack/services/profile_services.dart';
 import 'package:stack/utils/contstats.dart';
@@ -39,9 +40,10 @@ class _SignInScreenState extends State<SignInScreen> {
       var res = await LoginigService().singIn(model: _userSignInModel);
 
       if (res.state == SingInState.Succses) {
-        profileServices.user.id = res.id;
         // profileServices.user.state = CurentUserState.Signed;
-        Navigator.of(context).pushNamed(HomeScreen.routeName);
+        profileServices.user.id =
+            res.id; //TODO maybe take this line to service...
+        Navigator.of(context).pushNamed(HomeScreenUser.routeName);
       }
 
       setState(() {
