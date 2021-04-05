@@ -7,3 +7,8 @@ enum SingInState {
   Succses,
   Failed,
 }
+
+enum CurentUserState {
+  Signed,
+  NotSigned,
+}

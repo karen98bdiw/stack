@@ -1,7 +1,13 @@
-class User {
-  final String name;
-  final String surname;
-  final String email;
+import 'package:flutter/cupertino.dart';
+import 'package:stack/utils/enums.dart';
 
-  User({this.email, this.name, this.surname});
+class User extends ChangeNotifier {
+  String name;
+  String surname;
+  String email;
+  String id;
+
+  CurentUserState state;
+
+  // User({this.email, this.name, this.surname, this.id});
 }

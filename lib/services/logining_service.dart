@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stack/models/logining_models.dart';
 import 'package:stack/utils/enums.dart';
+import 'package:stack/widgets/helpers.dart';
 
 class LoginigService {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -25,6 +26,7 @@ class LoginigService {
 
       return true;
     } catch (e) {
+      showError(e.toString());
       print("error in sign up ${e.toString()}");
       return false;
     }
@@ -37,9 +39,9 @@ class LoginigService {
       if (res.user == null) {
         return SingInResponse(state: SingInState.Failed, id: null);
       }
-
       return SingInResponse(state: SingInState.Succses, id: res.user.uid);
     } catch (e) {
+      showError(e.toString());
       print("error in sing in ${e.toString()}");
       return SingInResponse(state: SingInState.Failed, id: null);
     }

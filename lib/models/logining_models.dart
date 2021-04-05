@@ -11,6 +11,7 @@ class UserSignUpModel {
 
     data["name"] = this.name;
     data["surname"] = this.surname;
+    data["email"] = this.email;
     return data;
   }
 }
