@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stack/services/profile_services.dart';
+import 'package:stack/utils/contstats.dart';
 import 'package:stack/utils/enums.dart';
+import 'package:stack/widgets/app_bars.dart';
 import 'package:stack/widgets/helpers.dart';
 
 class HomeScreenUser extends StatefulWidget {
@@ -16,7 +18,6 @@ class _HomeScreenUserState extends State<HomeScreenUser> {
 
   @override
   void initState() {
-    ProfileServices().getProfile();
     super.initState();
   }
 
@@ -34,14 +35,16 @@ class _HomeScreenUserState extends State<HomeScreenUser> {
         return false;
       },
       child: Scaffold(
+        backgroundColor: lightBackground,
         body: profileServices.user.state != CurentUserState.Signed
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : Center(
+            : SafeArea(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    ClippedAppBar(),
                     Text("id:${profileServices.user.id ?? null}"),
                     Text("name:${profileServices.user.name ?? ""}"),
                     Text("surname:${profileServices.user.surname ?? ""}"),

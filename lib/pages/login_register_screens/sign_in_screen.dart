@@ -43,7 +43,13 @@ class _SignInScreenState extends State<SignInScreen> {
         // profileServices.user.state = CurentUserState.Signed;
         profileServices.user.id =
             res.id; //TODO maybe take this line to service...
-        Navigator.of(context).pushNamed(HomeScreenUser.routeName);
+        await ProfileServices().getProfile();
+
+        if (profileServices.user.type == UserType.Buisnes) {
+          Navigator.of(context).pushNamed(HomeScreenBuisnes.routeName);
+        } else {
+          Navigator.of(context).pushNamed(HomeScreenUser.routeName);
+        }
       }
 
       setState(() {

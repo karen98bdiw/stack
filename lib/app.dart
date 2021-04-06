@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stack/pages/home_screen_buisnes.dart';
 import 'package:stack/pages/home_screen_user.dart';
 import 'package:stack/pages/login_register_screens/sign_in_screen.dart';
 import 'package:stack/pages/login_register_screens/sign_up_screen.dart';
@@ -21,6 +22,7 @@ class StackApp extends StatelessWidget {
           SignInScreen.routeName: (c) => SignInScreen(),
           SignUpScreen.routeName: (c) => SignUpScreen(),
           HomeScreenUser.routeName: (c) => HomeScreenUser(),
+          HomeScreenBuisnes.routeName: (c) => HomeScreenBuisnes(),
         },
       ),
     );

@@ -224,3 +224,29 @@ Future<void> showInfoDiolog({BuildContext context, String info}) async {
     ),
   );
 }
+
+class AppBarClipper extends CustomClipper<Path> {
+  final BuildContext context;
+
+  AppBarClipper({@required this.context});
+
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    var topX = size.width / 4;
+    var topY = 0.0;
+    var middleX = size.width / 3;
+    var middleY = 200.0;
+    var bottomX = size.width;
+    var bottomY = 250.0;
+    path.lineTo(topX, topY);
+    path.quadraticBezierTo(middleX, middleY, bottomX, bottomY);
+    path.lineTo(size.width, 0);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return true;
+  }
+}
