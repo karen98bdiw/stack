@@ -23,7 +23,7 @@ class LoginigService {
       }
 
       model.id = res.user.uid;
-      store.collection("users").doc(res.user.uid).set(model.toJson());
+      await store.collection("users").doc(res.user.uid).set(model.toJson());
 
       return true;
     } catch (e) {
@@ -40,6 +40,7 @@ class LoginigService {
       if (res.user == null) {
         return SingInResponse(state: SingInState.Failed, id: null);
       }
+
       return SingInResponse(state: SingInState.Succses, id: res.user.uid);
     } catch (e) {
       showError(e.toString());

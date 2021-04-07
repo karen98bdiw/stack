@@ -250,3 +250,28 @@ class AppBarClipper extends CustomClipper<Path> {
     return true;
   }
 }
+
+Widget usualInfoText(
+  String text, {
+  bool centered = false,
+}) {
+  return Padding(
+    padding: EdgeInsets.only(top: 7),
+    child: Text(
+      text,
+      style: usualInfoTextStyle,
+      textAlign: centered ? TextAlign.center : TextAlign.left,
+    ),
+  );
+}
+
+Widget titleText(String text) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 10),
+    child: Text(
+      text,
+      style: titleTextStyle,
+      textAlign: TextAlign.center,
+    ),
+  );
+}

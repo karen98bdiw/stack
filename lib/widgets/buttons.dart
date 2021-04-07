@@ -32,23 +32,24 @@ class CustomFormButton extends StatelessWidget {
 class CustomButton extends StatelessWidget {
   final String title;
   final Function onTap;
-
-  CustomButton({this.onTap, this.title});
+  final double radius;
+  CustomButton({this.onTap, this.title, this.radius = 7});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: RaisedButton(
-        padding: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         elevation: 7,
         color: Colors.pink,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
         onPressed: onTap,
         child: Text(
           title ?? "",
           style: TextStyle(
             color: lightTextColor,
-            fontSize: 20,
+            fontSize: 14,
           ),
         ),
       ),

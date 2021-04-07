@@ -21,3 +21,13 @@ const unCheckedTextStyle = const TextStyle(
   fontWeight: FontWeight.w400,
   color: Colors.pink,
 );
+
+const usualInfoTextStyle = TextStyle(
+  color: Colors.white,
+  height: 1,
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
+);
+
+const titleTextStyle = TextStyle(
+    color: Colors.white, height: 1, fontSize: 17, fontWeight: FontWeight.w600);

@@ -42,4 +42,8 @@ class ProfileServices extends ChangeNotifier {
       showError(e.toString());
     }
   }
+
+  Future<bool> constructCompany() {
+    //TODO;
+  }
 }
