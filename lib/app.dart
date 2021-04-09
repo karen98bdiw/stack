@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stack/models/company_model.dart';
 import 'package:stack/pages/home_screen_buisnes.dart';
 import 'package:stack/pages/home_screen_user.dart';
 import 'package:stack/pages/login_register_screens/sign_in_screen.dart';
 import 'package:stack/pages/login_register_screens/sign_up_screen.dart';
+import 'package:stack/pages/profile_screean.dart';
 import 'package:stack/services/profile_services.dart';
 import 'package:stack/utils/contstats.dart';
 
 class StackApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (c) => ProfileServices(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ProfileServices>(
+            create: (c) => ProfileServices()),
+        ChangeNotifierProvider<Company>(create: (c) => Company()),
+      ],
       child: MaterialApp(
         theme: ThemeData(
           primaryColor: mainColor,
@@ -23,6 +29,7 @@ class StackApp extends StatelessWidget {
           SignUpScreen.routeName: (c) => SignUpScreen(),
           HomeScreenUser.routeName: (c) => HomeScreenUser(),
           HomeScreenBuisnes.routeName: (c) => HomeScreenBuisnes(),
+          ProfilePage.routeName: (c) => ProfilePage(),
         },
       ),
     );

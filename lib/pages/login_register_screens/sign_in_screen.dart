@@ -5,6 +5,7 @@ import 'package:stack/models/logining_models.dart';
 import 'package:stack/models/user.dart';
 import 'package:stack/pages/home_screen_buisnes.dart';
 import 'package:stack/pages/home_screen_user.dart';
+import 'package:stack/pages/profile_screean.dart';
 import 'package:stack/services/logining_service.dart';
 import 'package:stack/services/profile_services.dart';
 import 'package:stack/utils/contstats.dart';
@@ -46,7 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
         await ProfileServices().getProfile();
 
         if (profileServices.user.type == UserType.Buisnes) {
-          Navigator.of(context).pushNamed(HomeScreenBuisnes.routeName);
+          Navigator.of(context).pushNamed(ProfilePage.routeName);
         } else {
           Navigator.of(context).pushNamed(HomeScreenUser.routeName);
         }

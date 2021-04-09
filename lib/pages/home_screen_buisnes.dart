@@ -140,24 +140,7 @@ class _HomeScreenBuisnes extends State<HomeScreenBuisnes> {
         CustomButton(
           radius: 20,
           title: "Construct Buisnes",
-          onTap: () async {
-            CompanyServices().company.name = "AlfaDent";
-            CompanyServices().company.description = "Dental Clinic";
-            CompanyServices().company.weekFirstWorkDay = "Sun";
-            CompanyServices().company.weekLastWorkDay = "Fri";
-            CompanyServices().company.workDayStartTime = DateTime.now();
-            CompanyServices().company.workDayEndTime = DateTime.now();
-            CompanyServices().company.stacks = [];
-            CompanyServices().company.addStack(
-                stack: comp.Stack(
-                    description: "Some great Worker",
-                    id: CompanyServices().company.stacks == null
-                        ? "0"
-                        : CompanyServices().company.stacks.length.toString(),
-                    worker: "Worket number 1"));
-
-            await CompanyServices().addCompany();
-          },
+          onTap: () async {},
         ),
       ],
     );

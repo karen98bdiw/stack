@@ -42,3 +42,44 @@ class CustomFormInput extends StatelessWidget {
     );
   }
 }
+
+Widget customInput(
+  String hint,
+  TextEditingController controller,
+  bool obscure,
+  FormFieldSetter<String> onSaved,
+  FormFieldValidator<String> validator,
+) {
+  return Padding(
+    padding: const EdgeInsets.only(top: 8),
+    child: TextFormField(
+      validator: validator,
+      onSaved: onSaved,
+      cursorColor: Colors.white,
+      textAlignVertical: TextAlignVertical.center,
+      controller: controller,
+      obscureText: obscure,
+      style: TextStyle(
+          fontSize: 18, color: Colors.white, fontWeight: FontWeight.w300),
+      decoration: InputDecoration(
+        isDense: true,
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.1),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none),
+        focusColor: Colors.white,
+        hintText: hint,
+        hintStyle: TextStyle(color: Colors.white),
+        labelStyle: TextStyle(
+            fontWeight: FontWeight.w300, fontSize: 18, color: Colors.white),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+            borderSide: BorderSide(color: Colors.grey.withOpacity(0))),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+            borderSide: BorderSide(color: Colors.grey.withOpacity(0))),
+      ),
+    ),
+  );
+}

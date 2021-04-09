@@ -1,20 +1,20 @@
-class Company {
+import 'package:flutter/material.dart';
+
+class Company extends ChangeNotifier {
   String id;
   String ownerId;
   String name;
   String description;
-  String weekFirstWorkDay;
-  String weekLastWorkDay;
-  DateTime workDayStartTime;
-  DateTime workDayEndTime;
+  List<String> workDays = [];
+
+  TimeOfDay workDayStartTime;
+  TimeOfDay workDayEndTime;
   List<Stack> stacks = [];
   Company({
     this.ownerId,
     this.id,
     this.name,
     this.description,
-    this.weekFirstWorkDay,
-    this.weekLastWorkDay,
     this.workDayEndTime,
     this.workDayStartTime,
   });
@@ -25,10 +25,9 @@ class Company {
     data["ownerId"] = this.ownerId;
     data["name"] = this.name;
     data["description"] = this.description;
-    data["weekFirstWorkDay"] = this.weekFirstWorkDay;
-    data["weekLastWorkDay"] = this.weekLastWorkDay;
-    data["workDayStartTime"] = this.workDayStartTime;
-    data["workDayEndTime"] = this.workDayEndTime;
+    data["workDays"] = this.workDays;
+    data["workDayStartTime"] = this.workDayStartTime.toString();
+    data["workDayEndTime"] = this.workDayEndTime.toString();
     data["stacks"] = this.stacks.map((e) => e.toJson()).toList();
     return data;
   }
@@ -39,17 +38,21 @@ class Company {
       ownerId: json["ownerId"],
       name: json["name"],
       description: json["description"],
-      weekFirstWorkDay: json["weekFirstWorkDay"],
-      weekLastWorkDay: json["weekLastWorkDay"],
       workDayStartTime: json["workDayStartTime"],
       workDayEndTime: json["workDayEndTime"],
     );
+    comp.workDays = json["workDays"];
     comp.stacks = (json["stacks"] as List).map((e) => Stack.fromJson(json));
     return comp;
   }
 
   void addStack({Stack stack}) {
     stacks.add(stack);
+    notifyListeners();
+  }
+
+  void addWorkDay({String workDay}) {
+    this.workDays.add(workDay);
   }
 
   void removeStackById([String id]) {
