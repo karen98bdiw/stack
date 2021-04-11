@@ -23,7 +23,6 @@ class ProfileServices extends ChangeNotifier {
   Future<bool> getProfile() async {
     try {
       var res = await store.collection("users").doc(user.id).get();
-      print("profile:${res.data()}");
       user = User.fromJson(res.data());
       user.state = CurentUserState.Signed;
       notifyListeners();
@@ -48,7 +47,7 @@ class ProfileServices extends ChangeNotifier {
   Future<bool> getUserCompany() async {
     try {
       var res = await store.collection("companies").doc(user.companyId).get();
-      if (res != null) {
+      if (res.exists) {
         CompanyServices().company = Company.fromJson(res.data());
         return true;
       }

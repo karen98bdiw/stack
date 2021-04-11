@@ -6,6 +6,8 @@ import 'package:stack/services/company_services.dart';
 import 'package:stack/services/profile_services.dart';
 import 'package:stack/utils/contstats.dart';
 import 'package:stack/utils/enums.dart';
+import 'package:stack/widgets/profile_top_bar.dart';
+import 'package:stack/widgets/side_menu.dart';
 import 'package:stack/widgets/stack_card.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -27,6 +29,12 @@ class _ProfilePageState extends State<ProfilePage> {
   double screenHeight;
   final Duration duration = const Duration(milliseconds: 500);
 
+  void sideBarToogler() {
+    setState(() {
+      _isSideMenuOpen = !_isSideMenuOpen;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     profileServices = Provider.of<ProfileServices>(context);
@@ -38,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: _isSideMenuOpen ? null : myBackgroundColor,
       body: Stack(children: [
-        _sideMenu(),
+        SideMenu(),
         _body(),
       ]),
     );
@@ -71,123 +79,8 @@ class _ProfilePageState extends State<ProfilePage> {
             _isSideMenuOpen ? null : BorderRadius.all(Radius.circular(10)),
         child: SingleChildScrollView(
           child: Stack(children: [
-            ClipPath(
-              clipper: MyClipper(),
-              child: Container(
-                  height: MediaQuery.of(context).size.height * 0.45,
-                  padding: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(46, 61, 77, 1),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10, left: 20),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              _isSideMenuOpen = !_isSideMenuOpen;
-                            });
-                          },
-                          child: Icon(
-                            Icons.menu,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: 130,
-                                  height: 130,
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(65)),
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/user_photo.jpg"),
-                                          fit: BoxFit.cover)),
-                                ),
-                                Container(
-                                  height: 40,
-                                  margin: EdgeInsets.only(
-                                      top: 20, left: 10, right: 10),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        elevation: 10, primary: Colors.pink),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Create Business",
-                                          style: TextStyle(fontSize: 12),
-                                        ),
-                                        Icon(Icons.add),
-                                      ],
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AddStreamPage()));
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Text(
-                                    ProfileServices().user.name +
-                                        " " +
-                                        ProfileServices().user.surname,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: Text(
-                                    "Armenia,Erevan,Abovyan 30",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: Text(
-                                    ProfileServices().user.type ==
-                                            UserType.Buisnes
-                                        ? "Buisnes Company"
-                                        : "Usual User",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  )),
+            ProfileTopBar(
+              sideMenuTogler: sideBarToogler,
             ),
             if (CompanyServices().company != null &&
                 CompanyServices().company?.stacks != null)
@@ -207,96 +100,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         );
                       }))
           ]),
-        ),
-      ),
-    );
-  }
-
-  Widget _sideMenu() {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        //decoration: BoxDecoration(),
-        width: MediaQuery.of(context).size.width * 0.5,
-        margin: EdgeInsets.symmetric(vertical: 50),
-        // color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-                child: Row(
-              children: [
-                Container(
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                ),
-                Container(
-                    child: Text("User",
-                        style: TextStyle(color: Colors.white, fontSize: 18)))
-              ],
-            )),
-            Container(
-                child: Row(
-              children: [
-                Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    child: Icon(
-                      Icons.email,
-                      color: Colors.white,
-                      size: 30,
-                    )),
-                Text("Email",
-                    style: TextStyle(color: Colors.white, fontSize: 18)),
-              ],
-            )),
-            Container(
-                child: Row(
-              children: [
-                Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    child: Icon(
-                      Icons.phone,
-                      color: Colors.white,
-                      size: 30,
-                    )),
-                Text("Phone",
-                    style: TextStyle(color: Colors.white, fontSize: 18)),
-              ],
-            )),
-            Container(
-                child: Row(
-              children: [
-                Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    child: Icon(
-                      Icons.settings,
-                      color: Colors.white,
-                      size: 30,
-                    )),
-                Text("Settings",
-                    style: TextStyle(color: Colors.white, fontSize: 18)),
-              ],
-            )),
-            Container(
-                child: Row(
-              children: [
-                Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    child: Icon(
-                      Icons.logout,
-                      color: Colors.white,
-                      size: 30,
-                    )),
-                Text("Log out",
-                    style: TextStyle(color: Colors.white, fontSize: 18)),
-              ],
-            )),
-          ],
         ),
       ),
     );

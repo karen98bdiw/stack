@@ -47,11 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
         await ProfileServices().getProfile();
         await ProfileServices().getUserCompany();
 
-        if (profileServices.user.type == UserType.Buisnes) {
-          Navigator.of(context).pushNamed(ProfilePage.routeName);
-        } else {
-          Navigator.of(context).pushNamed(HomeScreenUser.routeName);
-        }
+        Navigator.of(context).pushNamed(ProfilePage.routeName);
       }
 
       setState(() {
