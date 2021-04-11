@@ -6,6 +6,7 @@ import 'package:stack/services/profile_services.dart';
 class CompanyServices {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore store = FirebaseFirestore.instance;
+  Company company;
 
   static final CompanyServices companyServices = CompanyServices._internal();
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stack/models/stacks.dart';
 import 'package:stack/pages/add_stream_page.dart';
+import 'package:stack/services/company_services.dart';
 import 'package:stack/services/profile_services.dart';
 import 'package:stack/utils/contstats.dart';
 import 'package:stack/utils/enums.dart';
@@ -45,6 +46,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   void initState() {
+    if (CompanyServices().company == null) {
+      print("user have not company");
+    } else {
+      print("user have company");
+      print(CompanyServices().company.toJson());
+    }
     for (var item in Stacks.listStackWidgets) {
       listStacks.add(item);
     }
@@ -182,17 +189,23 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   )),
             ),
-            // Container(
-            //     height: MediaQuery.of(context).size.height * 0.47,
-            //     margin: EdgeInsets.only(
-            //         top: MediaQuery.of(context).size.height * 0.45),
-            //     child: ListView.builder(
-            //         itemCount: listStacks.length,
-            //         itemBuilder: (context, index) {
-            //           return StackCard(
-
-            //           );
-            //         }))
+            if (CompanyServices().company != null &&
+                CompanyServices().company?.stacks != null)
+              Container(
+                  height: MediaQuery.of(context).size.height * 0.47,
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.45),
+                  child: ListView.builder(
+                      itemCount: CompanyServices().company.stacks.length,
+                      itemBuilder: (context, index) {
+                        return StackCard(
+                          description: CompanyServices()
+                              .company
+                              .stacks[index]
+                              .description,
+                          name: CompanyServices().company.stacks[index].worker,
+                        );
+                      }))
           ]),
         ),
       ),

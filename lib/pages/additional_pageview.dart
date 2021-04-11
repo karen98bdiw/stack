@@ -23,6 +23,8 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _workTypeController = TextEditingController();
 
+  DateTime curentTime = DateTime.now();
+
   File _image;
   ImagePicker _picker;
 
@@ -33,8 +35,8 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
 
   String dateTime;
 
-  TimeOfDay _selectedTimeEnd;
-  TimeOfDay _selectedTimeStart;
+  DateTime _selectedTimeEnd;
+  DateTime _selectedTimeStart;
 
   Company company;
 
@@ -66,8 +68,8 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
   @override
   void initState() {
     super.initState();
-    _selectedTimeStart = TimeOfDay.now();
-    _selectedTimeEnd = TimeOfDay.now();
+    _selectedTimeStart = DateTime.now();
+    _selectedTimeEnd = DateTime.now();
   }
 
   @override
@@ -209,12 +211,13 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
   Future<Null> _selectTimeStart(BuildContext context) async {
     TimeOfDay time = await showTimePicker(
       context: context,
-      initialTime: _selectedTimeStart,
+      initialTime: TimeOfDay.fromDateTime(_selectedTimeStart),
     );
 
     if (time != null) {
       setState(() {
-        _selectedTimeStart = time;
+        _selectedTimeStart = DateTime(curentTime.year, curentTime.month,
+            curentTime.day, time.hour, time.minute);
       });
     }
   }
@@ -222,12 +225,13 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
   Future<Null> _selectTimeEnd(BuildContext context) async {
     TimeOfDay time = await showTimePicker(
       context: context,
-      initialTime: _selectedTimeEnd,
+      initialTime: TimeOfDay.fromDateTime(_selectedTimeEnd),
     );
 
     if (time != null) {
       setState(() {
-        _selectedTimeEnd = time;
+        _selectedTimeEnd = DateTime(curentTime.year, curentTime.month,
+            curentTime.day, time.hour, time.minute);
       });
     }
   }

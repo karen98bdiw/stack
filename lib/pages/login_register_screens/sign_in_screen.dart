@@ -45,6 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
         profileServices.user.id =
             res.id; //TODO maybe take this line to service...
         await ProfileServices().getProfile();
+        await ProfileServices().getUserCompany();
 
         if (profileServices.user.type == UserType.Buisnes) {
           Navigator.of(context).pushNamed(ProfilePage.routeName);

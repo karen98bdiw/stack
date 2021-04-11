@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/cupertino.dart';
+import 'package:stack/models/company_model.dart';
 import 'package:stack/models/user.dart';
+import 'package:stack/services/company_services.dart';
 import 'package:stack/utils/enums.dart';
 import 'package:stack/widgets/helpers.dart';
 
@@ -43,7 +45,19 @@ class ProfileServices extends ChangeNotifier {
     }
   }
 
-  Future<bool> constructCompany() {
-    //TODO;
+  Future<bool> getUserCompany() async {
+    try {
+      var res = await store.collection("companies").doc(user.companyId).get();
+      if (res != null) {
+        CompanyServices().company = Company.fromJson(res.data());
+        return true;
+      }
+
+      CompanyServices().company = null;
+      return false;
+    } catch (e) {
+      print("error in get company:${e.toString()}");
+      return false;
+    }
   }
 }

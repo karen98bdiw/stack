@@ -7,8 +7,8 @@ class Company extends ChangeNotifier {
   String description;
   List<String> workDays = [];
 
-  TimeOfDay workDayStartTime;
-  TimeOfDay workDayEndTime;
+  DateTime workDayStartTime;
+  DateTime workDayEndTime;
   List<Stack> stacks = [];
   Company({
     this.ownerId,
@@ -38,11 +38,13 @@ class Company extends ChangeNotifier {
       ownerId: json["ownerId"],
       name: json["name"],
       description: json["description"],
-      workDayStartTime: json["workDayStartTime"],
-      workDayEndTime: json["workDayEndTime"],
+      workDayStartTime: DateTime.parse(json["workDayStartTime"]),
+      workDayEndTime: DateTime.parse(json["workDayEndTime"]),
     );
-    comp.workDays = json["workDays"];
-    comp.stacks = (json["stacks"] as List).map((e) => Stack.fromJson(json));
+    comp.workDays =
+        (json["workDays"] as List).map((e) => e.toString()).toList();
+    comp.stacks =
+        (json["stacks"] as List).map((e) => Stack.fromJson(e)).toList();
     return comp;
   }
 
