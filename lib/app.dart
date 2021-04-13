@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stack/models/company_model.dart';
+import 'package:stack/pages/home_page.dart';
+import 'package:stack/pages/home_page_test.dart';
 import 'package:stack/pages/home_screen_buisnes.dart';
-import 'package:stack/pages/home_screen_user.dart';
 import 'package:stack/pages/login_register_screens/sign_in_screen.dart';
 import 'package:stack/pages/login_register_screens/sign_up_screen.dart';
 import 'package:stack/pages/profile_screean.dart';
@@ -27,9 +28,12 @@ class StackApp extends StatelessWidget {
         routes: {
           SignInScreen.routeName: (c) => SignInScreen(),
           SignUpScreen.routeName: (c) => SignUpScreen(),
-          HomeScreenUser.routeName: (c) => HomeScreenUser(),
           HomeScreenBuisnes.routeName: (c) => HomeScreenBuisnes(),
           ProfilePage.routeName: (c) => ProfilePage(),
+          HomePageBuisnes.routeName: (c) => HomePageBuisnes(
+                sectionIndex: 0,
+              ),
+          HomePageUser.routeName: (c) => HomePageUser(1),
         },
       ),
     );

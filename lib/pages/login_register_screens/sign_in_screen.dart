@@ -3,8 +3,10 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:provider/provider.dart';
 import 'package:stack/models/logining_models.dart';
 import 'package:stack/models/user.dart';
+import 'package:stack/pages/home_page.dart';
+import 'package:stack/pages/home_page_test.dart';
 import 'package:stack/pages/home_screen_buisnes.dart';
-import 'package:stack/pages/home_screen_user.dart';
+import 'package:stack/pages/profile_page.dart';
 import 'package:stack/pages/profile_screean.dart';
 import 'package:stack/services/logining_service.dart';
 import 'package:stack/services/profile_services.dart';
@@ -47,7 +49,11 @@ class _SignInScreenState extends State<SignInScreen> {
         await ProfileServices().getProfile();
         await ProfileServices().getUserCompany();
 
-        Navigator.of(context).pushNamed(ProfilePage.routeName);
+        if (profileServices.user.type == UserType.Buisnes) {
+          Navigator.of(context).pushNamed(HomePageBuisnes.routeName);
+        } else {
+          Navigator.of(context).pushNamed(HomePageUser.routeName);
+        }
       }
 
       setState(() {

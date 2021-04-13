@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:stack/pages/profile_page.dart';
 import 'package:stack/pages/profile_screean.dart';
-import 'package:stack/pages/search_queue_age.dart';
+import 'package:stack/pages/streams_screen.dart';
 
-class HomePageUser extends StatefulWidget {
-  static final routeName = "HomePageUser";
+class HomePageBuisnes extends StatefulWidget {
+  int sectionIndex;
 
-  int sectionIndex = 0;
-  HomePageUser(this.sectionIndex);
+  static final routeName = "HomePageBuisnes";
+
+  HomePageBuisnes({this.sectionIndex = 0});
 
   @override
-  _HomePageUserState createState() => _HomePageUserState();
+  _HomePageBuisnesState createState() => _HomePageBuisnesState();
 }
 
-class _HomePageUserState extends State<HomePageUser> {
+class _HomePageBuisnesState extends State<HomePageBuisnes> {
+  //int sectionIndex = widget.index;
+  //
+  //
   @override
   void initState() {
-    print("user home page oppend");
+    print("home page buisnes  is oppened");
     super.initState();
   }
 
@@ -24,10 +27,8 @@ class _HomePageUserState extends State<HomePageUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: widget.sectionIndex,
         items: [
-          BottomNavigationBarItem(
-              label: "Search Queue", icon: Icon(Icons.menu)),
+          BottomNavigationBarItem(label: "Strems", icon: Icon(Icons.menu)),
           BottomNavigationBarItem(label: "Profile", icon: Icon(Icons.person)),
         ],
         onTap: (index) {
@@ -35,6 +36,8 @@ class _HomePageUserState extends State<HomePageUser> {
             widget.sectionIndex = index;
           });
         },
+        currentIndex: widget.sectionIndex,
+        backgroundColor: Colors.white,
       ),
       body: _body(),
     );
@@ -43,12 +46,12 @@ class _HomePageUserState extends State<HomePageUser> {
   Widget _body() {
     switch (widget.sectionIndex) {
       case 0:
-        return SearchQueuePage();
+        return StreamsPage();
         break;
       case 1:
-        return ProfileUserPage();
+        return ProfilePage();
       default:
-        return SearchQueuePage();
+        return StreamsPage();
     }
   }
 }

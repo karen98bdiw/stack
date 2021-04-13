@@ -9,6 +9,7 @@ import 'package:stack/widgets/helpers.dart';
 
 class ProfileServices extends ChangeNotifier {
   User user = User();
+  List<Company> listCompanies = [];
   final auth.FirebaseAuth firebaseAuth = auth.FirebaseAuth.instance;
   final FirebaseFirestore store = FirebaseFirestore.instance;
 
@@ -42,6 +43,16 @@ class ProfileServices extends ChangeNotifier {
     } catch (e) {
       showError(e.toString());
     }
+  }
+
+  Future<bool> getCompanies() async {
+    listCompanies = [];
+    try {
+      var res = await store.collection('companies').get();
+      res.docs.forEach((element) {
+        listCompanies.add(Company.fromJson(element.data()));
+      });
+    } catch (e) {}
   }
 
   Future<bool> getUserCompany() async {
